@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>คำนวณค่าธรรมเนียม</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 420px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #1e40af;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>คำนวณค่าธรรมเนียม</h2>
+
+    <label>ราคาสินค้า (บาท)</label>
+    <input type="number" id="price" placeholder="เช่น 1000">
+
+    <label>ค่าธรรมเนียม (%)</label>
+    <input type="number" id="fee" value="2.9">
+
+    <label>เป็นการผ่อนชำระหรือไม่?</label>
+    <select id="installment">
+        <option value="no">ไม่ใช่</option>
+        <option value="yes">ใช่</option>
+    </select>
+
+    <button onclick="calculate()">คำนวณ</button>
+
+    <div class="result" id="result" style="display:none;"></div>
+</div>
+
+<script>
+function calculate() {
+    const price = parseFloat(document.getElementById("price").value);
+    const feePercent = parseFloat(document.getElementById("fee").value);
+
+    if (isNaN(price) || isNaN(feePercent)) {
+        alert("กรุณากรอกข้อมูลให้ครบ");
+        return;
+    }
+
+    const fee = price * (feePercent / 100);
+    const net = price - fee;
+
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result").innerHTML = `
+        <b>ค่าธรรมเนียม:</b> ${fee.toFixed(2)} บาท<br>
+        <b>เงินที่ได้รับสุทธิ:</b> ${net.toFixed(2)} บาท
+    `;
+}
+</script>
+
+</body>
+</html>
